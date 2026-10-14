@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1, "title": "Cine latinoamericano", "category": "Web", "subtitle": "Portada multimedia en Angular",
+    "description": "Ejemplo académico de una plataforma de películas con tarjetas, filtros y una interfaz responsiva.",
+    "technologies": ["Angular", "TypeScript", "SCSS"], "image": "assets/images/proyecto-cine.jpg", "year": "2026", "status": "Práctica académica"
+  },
+  {
+    "id": 2, "title": "App de emergencias", "category": "Web", "subtitle": "Idea de sistema de atención",
+    "description": "Propuesta de aplicación para localizar centros de salud y apoyar solicitudes coordinadas de ambulancia.",
+    "technologies": ["Python", "Django", "Mapas"], "image": "assets/images/proyecto-emergencias.jpg", "year": "2026", "status": "Proyecto en desarrollo"
+  },
+  {
+    "id": 3, "title": "Smart Home IoT", "category": "IoT", "subtitle": "Automatización doméstica",
+    "description": "Prototipo de control y monitoreo de sensores para iluminación, temperatura y seguridad.",
+    "technologies": ["ESP8266", "Sensores", "IoT"], "image": "assets/images/proyecto-iot.jpg", "year": "2026", "status": "Práctica de prototipo"
+  },
+  {
+    "id": 4, "title": "Redes y VLAN", "category": "Redes", "subtitle": "Segmentación en Cisco Packet Tracer",
+    "description": "Ejercicios de topologías, VLAN, direccionamiento y verificación de conectividad.",
+    "technologies": ["Cisco", "VLAN", "Packet Tracer"], "image": "assets/images/proyecto-redes.jpg", "year": "2026", "status": "Práctica académica"
+  }
+]

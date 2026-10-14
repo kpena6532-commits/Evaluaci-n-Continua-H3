@@ -1,0 +1,177 @@
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<button class="mobile-menu" type="button" (click)="navOpen.set(!navOpen())" [attr.aria-expanded]="navOpen()" aria-label="Abrir o cerrar navegación">
+  <span></span><span></span><span></span>
+</button>
+@if (navOpen()) { <button class="nav-backdrop" type="button" (click)="navOpen.set(false)" aria-label="Cerrar menú"></button> }
+
+<aside class="sidebar" [class.sidebar-open]="navOpen()" aria-label="Menú principal">
+  <div class="sidebar-content">
+    <div class="sidebar-top">
+      <img class="profile-avatar" src="assets/images/perfil-estudio.jpg" alt="Fotografía personal de perfil" />
+      <a class="sidebar-brand" href="#inicio" (click)="navigate('inicio'); $event.preventDefault()">{{ profile().name }}</a>
+      <p>INGENIERÍA DE SISTEMAS</p>
+      <div class="social-mini" aria-label="Accesos rápidos">
+        <button type="button" title="Ver proyectos" aria-label="Ver proyectos" (click)="navigate('portafolio')">&lt;/&gt;</button>
+        <button type="button" title="Ver galería" aria-label="Ver galería" (click)="navigate('galeria')">◫</button>
+        <button type="button" title="Ir al contacto" aria-label="Ir al contacto" (click)="navigate('contacto')">✉</button>
+      </div>
+    </div>
+    <nav class="side-nav" aria-label="Secciones del portafolio">
+      @for (link of links; track link.id) {
+        <a [href]="'#' + link.id" [class.active]="activeSection() === link.id" (click)="navigate(link.id); $event.preventDefault()">
+          <span class="nav-icon" aria-hidden="true">{{ link.icon }}</span><span>{{ link.label }}</span>
+        </a>
+      }
+    </nav>
+    <div class="sidebar-footer"><span class="status-dot"></span> Proyecto académico · 2026<br /><small>Angular 22 · iPortfolio inspirado</small></div>
+  </div>
+</aside>
+
+<main id="contenido" class="main-content">
+  <!-- HERO: video real MP4 creado a partir de una fotografía personal con paneo y zoom. -->
+  <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <video #heroVideo class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-portada.jpg" aria-label="Video animado con una fotografía personal">
+      <source src="assets/videos/portada-animada.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-inner container">
+      <div class="hero-tag"><span class="tag-line"></span> BIENVENIDO A MI PORTAFOLIO</div>
+      <p class="hero-hello">Hola, soy</p>
+      <h1 id="hero-title">{{ profile().name }}<span class="accent-dot">.</span></h1>
+      <div class="hero-role">{{ profile().role }}<span class="typing-cursor" aria-hidden="true"></span></div>
+      <p class="hero-description">{{ profile().introduction }}</p>
+      <div class="hero-actions">
+        <button type="button" class="button button-primary" (click)="navigate('portafolio')">Ver mis proyectos <span aria-hidden="true">↗</span></button>
+        <button type="button" class="button button-outline" (click)="navigate('sobre-mi')">Conoce mi historia <span aria-hidden="true">↓</span></button>
+      </div>
+      <div class="hero-bottom"><span class="hero-location">⌖ &nbsp;{{ profile().city }}</span><span class="hero-scroll">DESLIZA PARA EXPLORAR <span aria-hidden="true">↓</span></span></div>
+    </div>
+    <button class="video-control" type="button" (click)="toggleVideo()" [attr.aria-label]="videoPaused() ? 'Reproducir video' : 'Pausar video'">
+      {{ videoPaused() ? '▶ Reproducir video' : 'Ⅱ Pausar video' }}
+    </button>
+  </section>
+
+  @if (loadError()) { <div class="container warning">No fue posible leer los archivos JSON. Ejecuta el proyecto con <code>npm start</code> en lugar de abrir el archivo HTML directamente.</div> }
+
+  <section class="section about-section" id="sobre-mi" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">01 / CONÓCEME</span><h2 id="about-heading">Sobre mí<span class="accent-dot">.</span></h2><div class="heading-line"></div><p>Una pequeña presentación de quién soy y qué me gusta construir.</p></div>
+      <div class="about-grid">
+        <div class="about-photo-wrap"><img src="assets/images/galeria-1.jpg" alt="Fotografía personal en el aula" loading="lazy" /><div class="about-photo-label"><span class="label-shine"></span> CREATIVIDAD + TECNOLOGÍA</div></div>
+        <div class="about-copy">
+          <span class="small-pill">MI PERFIL</span>
+          <h3>Aprendiendo hoy para <em>crear</em> el mañana.</h3>
+          <p>{{ profile().biography }}</p>
+          <div class="about-details">
+            <div><span class="detail-label">Especialidad</span><strong>{{ profile().role }}</strong></div>
+            <div><span class="detail-label">Universidad</span><strong>{{ profile().education }}</strong></div>
+            <div><span class="detail-label">Ubicación</span><strong>{{ profile().city }}</strong></div>
+            <div><span class="detail-label">Intereses</span><strong>Web · IoT · Redes</strong></div>
+          </div>
+          <button class="text-link" type="button" (click)="navigate('trayectoria')">Conoce mi formación <span aria-hidden="true">↗</span></button>
+        </div>
+      </div>
+      <div class="stats-grid">
+        @for (highlight of profile().highlights; track highlight.label) {
+          <div class="stat-card"><span class="stat-number">{{ highlight.value }}</span><span class="stat-label">{{ highlight.label }}</span></div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="habilidades" aria-labelledby="skills-heading">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">02 / LO QUE APRENDO</span><h2 id="skills-heading">Mis habilidades<span class="accent-dot">.</span></h2><div class="heading-line"></div><p>Tecnologías que utilizo en mis prácticas y proyectos académicos. Porcentajes ilustrativos y editables.</p></div>
+      <div class="skills-grid">
+        @for (skill of profile().skills; track skill.name) {
+          <div class="skill-item">
+            <div class="skill-head"><strong>{{ skill.name }}</strong><span>{{ skill.level }}%</span></div>
+            <div class="skill-track"><div class="skill-fill" [style.width.%]="skill.level"></div></div>
+            <small>{{ skill.category }}</small>
+          </div>
+        }
+      </div>
+      <div class="skills-note"><span class="round-icon">✦</span><p>Mi objetivo es seguir mejorando, experimentar nuevas herramientas y convertir lo aprendido en aplicaciones útiles.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="trayectoria" aria-labelledby="education-heading">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">03 / MI CAMINO</span><h2 id="education-heading">Formación<span class="accent-dot">.</span></h2><div class="heading-line"></div><p>Formación e intereses de desarrollo profesional.</p></div>
+      <div class="timeline-layout">
+        <div class="timeline-intro"><span class="small-pill">MI RECORRIDO</span><h3>Cada proyecto es una nueva oportunidad de aprender.</h3><p>Disfruto trabajar con interfaces, bases de datos, dispositivos inteligentes y resolución de problemas.</p></div>
+        <div class="timeline">
+          <div class="timeline-entry"><span class="timeline-year">ACTUALIDAD</span><h4>Ingeniería de Sistemas</h4><span class="timeline-place">{{ profile().education }}</span><p>Formación universitaria con enfoque en software, tecnologías de información y desarrollo de soluciones.</p></div>
+          <div class="timeline-entry"><span class="timeline-year">ÁREAS DE INTERÉS</span><h4>Desarrollo web y multimedia</h4><span class="timeline-place">Angular · TypeScript · CSS</span><p>Construcción de interfaces modernas, adaptables e interactivas.</p></div>
+          <div class="timeline-entry"><span class="timeline-year">EXPLORACIÓN</span><h4>IoT, redes y hardware</h4><span class="timeline-place">ESP32 · Sensores · Cisco</span><p>Integración entre aplicaciones, conectividad y prototipos tecnológicos.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="portafolio" aria-labelledby="portfolio-heading">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">04 / MI TRABAJO</span><h2 id="portfolio-heading">Mis proyectos<span class="accent-dot">.</span></h2><div class="heading-line"></div><p>Ideas y prácticas académicas de tecnología. Abre cualquier tarjeta para leer su descripción.</p></div>
+      <div class="filter-row" aria-label="Filtrar proyectos">
+        @for (category of filters; track category) {
+          <button type="button" [class.selected]="filter() === category" [attr.aria-pressed]="filter() === category" (click)="filter.set(category)">{{ category }}</button>
+        }
+      </div>
+      <div class="projects-grid">
+        @for (project of visibleProjects(); track project.id) {
+          <button class="project-card" type="button" (click)="selectedProject.set(project)" [attr.aria-label]="'Ver detalles de ' + project.title">
+            <div class="project-cover"><img [src]="project.image" [alt]="'Imagen ilustrativa del proyecto ' + project.title" loading="lazy"/><span class="project-open" aria-hidden="true">↗</span></div>
+            <div class="project-body"><span class="project-cat">{{ project.category }} <span aria-hidden="true">•</span> {{ project.year }}</span><h3>{{ project.title }}</h3><p>{{ project.subtitle }}</p><div class="tech-tags">@for (technology of project.technologies; track technology) {<span>{{technology}}</span>}</div></div>
+          </button>
+        } @empty {<p class="empty-state">No hay proyectos para este filtro.</p>}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="galeria" aria-labelledby="gallery-heading">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">05 / MI GALERÍA</span><h2 id="gallery-heading">Momentos personales<span class="accent-dot">.</span></h2><div class="heading-line"></div><p>Algunas fotografías reales de mis días de estudio, retocadas para esta presentación.</p></div>
+      <div class="gallery-grid">
+        @for (photo of profile().gallery; track photo.image; let i = $index) {
+          <button class="gallery-item" type="button" (click)="selectedPhoto.set(photo)" [attr.aria-label]="'Ampliar foto: ' + photo.label">
+            <img [src]="photo.image" [alt]="photo.alt" loading="lazy"/><span class="gallery-hover"><span class="gallery-index">0{{i+1}}</span><strong>{{ photo.label }}</strong><span class="gallery-plus">＋</span></span>
+          </button>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="contacto" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">06 / HABLEMOS</span><h2 id="contact-heading">Contacto<span class="accent-dot">.</span></h2><div class="heading-line"></div><p>Un formulario de demostración sin servidor: los mensajes se guardan solo en tu navegador.</p></div>
+      <div class="contact-layout">
+        <div class="contact-info"><span class="small-pill">ESTEMOS EN CONTACTO</span><h3>¿Tienes una idea para un proyecto?</h3><p>Me interesa compartir conocimientos, aprender de otras personas y colaborar en iniciativas académicas.</p>
+          <div class="contact-line"><span class="contact-icon" aria-hidden="true">⌖</span><div><small>Ubicación</small><strong>{{ profile().city }}</strong></div></div>
+          <div class="contact-line"><span class="contact-icon" aria-hidden="true">✉</span><div><small>Correo de ejemplo (personalízalo)</small><strong>{{ profile().email }}</strong></div></div>
+          <div class="contact-footnote">Para poner tu correo real, edita <code>public/assets/data/profile.json</code>.</div>
+        </div>
+        <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="saveDemoMessage()" novalidate>
+          <h3>Deja tu mensaje</h3><p>Este formulario es funcional como demostración local.</p>
+          <div class="form-duo">
+            <label>Tu nombre <input type="text" formControlName="name" placeholder="Escribe tu nombre" autocomplete="name" />@if (contactForm.controls.name.touched && contactForm.controls.name.invalid) {<small class="field-error">Escribe al menos 3 caracteres.</small>}</label>
+            <label>Tu correo <input type="email" formControlName="email" placeholder="correo@ejemplo.com" autocomplete="email" />@if (contactForm.controls.email.touched && contactForm.controls.email.invalid) {<small class="field-error">Ingresa un correo válido.</small>}</label>
+          </div>
+          <label>Tu mensaje <textarea formControlName="message" rows="5" placeholder="Cuéntame sobre tu idea..."></textarea>@if (contactForm.controls.message.touched && contactForm.controls.message.invalid) {<small class="field-error">El mensaje debe tener 10 caracteres como mínimo.</small>}</label>
+          <button class="button button-primary form-submit" type="submit">Guardar mensaje de prueba <span aria-hidden="true">↗</span></button>
+          @if (formMessage()) {<p class="form-message" role="status">{{formMessage()}}</p>}
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer"><div class="container"><div><strong>{{profile().name}}<span class="accent-dot">.</span></strong><p>Portafolio personal · Proyecto de evaluación multimedia</p></div><div><span>Creado con Angular 22 y fotografías personales · 2026</span><small>Inspirado en el diseño de <a href="https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/" target="_blank" rel="noopener noreferrer">iPortfolio / BootstrapMade</a></small></div></div></footer>
+</main>
+
+@if (selectedPhoto(); as photo) {
+  <div class="modal-backdrop" role="presentation" (click)="closeOverlays()"><div class="photo-dialog" role="dialog" aria-modal="true" [attr.aria-label]="photo.label" (click)="$event.stopPropagation()"><button class="modal-close" type="button" aria-label="Cerrar imagen" (click)="closeOverlays()">×</button><img [src]="photo.image" [alt]="photo.alt" /><span>{{photo.label}}</span></div></div>
+}
+@if (selectedProject(); as project) {
+  <div class="modal-backdrop" role="presentation" (click)="closeOverlays()"><div class="project-dialog" role="dialog" aria-modal="true" [attr.aria-label]="'Detalle de ' + project.title" (click)="$event.stopPropagation()"><button class="modal-close" type="button" aria-label="Cerrar detalle" (click)="closeOverlays()">×</button><img [src]="project.image" [alt]="'Imagen de ' + project.title" /><div class="dialog-content"><span class="eyebrow">{{project.category}} / {{project.year}}</span><h2>{{project.title}}</h2><p>{{project.description}}</p><strong>{{project.status}}</strong><div class="tech-tags">@for (technology of project.technologies; track technology) {<span>{{technology}}</span>}</div></div></div></div>
+}

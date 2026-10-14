@@ -1,0 +1,29 @@
+{
+  "name": "Alexis",
+  "initials": "A",
+  "role": "Estudiante de Ingeniería de Sistemas",
+  "secondaryRole": "Desarrollador web e interesado en IoT",
+  "city": "Cochabamba, Bolivia",
+  "email": "tu-correo@ejemplo.com",
+  "education": "Universidad Privada Franz Tamayo (UNIFRANZ)",
+  "introduction": "Me apasiona crear experiencias digitales, conectar tecnología con ideas y transformar proyectos de clase en soluciones funcionales.",
+  "biography": "Soy estudiante de Ingeniería de Sistemas y disfruto combinar programación, diseño web, redes y electrónica. Este portafolio reúne ejercicios y ejemplos académicos; sus fichas se pueden actualizar a medida que termine cada proyecto.",
+  "skills": [
+    {"name": "HTML, CSS y diseño responsivo", "level": 90, "category": "Frontend"},
+    {"name": "Angular y TypeScript", "level": 78, "category": "Frontend"},
+    {"name": "JavaScript", "level": 80, "category": "Desarrollo"},
+    {"name": "Python y Django", "level": 72, "category": "Backend"},
+    {"name": "MySQL y bases de datos", "level": 75, "category": "Datos"},
+    {"name": "IoT, ESP32 y redes", "level": 83, "category": "Hardware"}
+  ],
+  "highlights": [
+    {"value": "04", "label": "Proyectos de ejemplo"},
+    {"value": "06", "label": "Tecnologías destacadas"},
+    {"value": "100%", "label": "Curiosidad por aprender"}
+  ],
+  "gallery": [
+    {"image": "assets/images/galeria-1.jpg", "alt": "Fotografía personal en un aula de informática", "label": "En el aula"},
+    {"image": "assets/images/galeria-2.jpg", "alt": "Fotografía personal con compañeros en el laboratorio", "label": "Aprendiendo en equipo"},
+    {"image": "assets/images/galeria-3.jpg", "alt": "Fotografía personal de estudio", "label": "Mi día a día"}
+  ]
+}
